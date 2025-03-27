@@ -1,3 +1,4 @@
+import ie.atu.week9.Passenger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
