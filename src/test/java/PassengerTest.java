@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PassengerTest {
     static Passenger passenger;
@@ -34,4 +35,25 @@ public class PassengerTest {
         Passenger passenger3 = new Passenger(title, "Meike", "e Meike");
     }
 
+    @Test
+    void testTitleFail() {
+        assertThrows(IllegalArgumentException.class, () -> new Passenger("Not Mr", "Meike", "e Meike"));
+        assertThrows(IllegalArgumentException.class, () -> new Passenger("", "Meike", "e Meike"));
+    }
+
+    @Test
+    void testShortFirstName() {
+        Exception e = assertThrows(IllegalArgumentException.class, () -> {
+            new Passenger("Mr", "Me", "e Meike");
+        });
+        assertEquals("Invalid First Name Length", e.getMessage());
+    }
+
+    @Test
+    void testShortLastName() {
+        Exception e = assertThrows(IllegalArgumentException.class, () -> {
+            new Passenger("Mr", "Meike", "e");
+        });
+        assertEquals("Invalid Last Name Length", e.getMessage());
+    }
 }
